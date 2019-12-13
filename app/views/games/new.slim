@@ -1,0 +1,15 @@
+- provide(:title, "Create Game")
+
+body
+
+  h1 Create A Game
+  = form_for(@game) do |f|
+  
+    = f.label :name
+    = f.text_field :name
+
+    - (2..6).each do |number|
+      = f.radio_button :player_num, number, class: "btn-#{number}-players"
+      = f.label :player_num, "#{number} Players", value: number
+
+    = f.submit "Create Game", class: "btn btn-primary"

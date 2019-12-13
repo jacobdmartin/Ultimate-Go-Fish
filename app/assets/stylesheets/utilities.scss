@@ -1,0 +1,176 @@
+.flex {display: flex;}
+
+.flex-row {flex-direction: row;}
+
+.flex-column {flex-direction: column;}
+
+.flex-start {justify-content: flex-start;}
+
+.flex-end {justify-content: flex-end;}
+
+.justify-around {justify-content: space-around;}
+
+.justify-between {justify-content: space-between}
+
+.justify-center {justify-content: center;}
+
+.justify-right {justify-content: right;}
+
+.justify-left {justify-content: left;}
+
+.items-stretch {align-items: stretch;}
+
+$gray-medium-light: #eaeaea;
+$yellow: #ffda55;
+
+body {
+  background-color: #008042;
+  height: calc(100% - 80px);
+  width: auto;
+  margin: auto;
+  font: 12pt Helvetica, sans-serif;
+  background-image: url(https://www.worshipwoodworks.com/app/uploads/2013/12/p-5797-580.09-2.jpg);
+  overflow: scroll;
+}
+
+container {
+  display: flex;
+}
+
+.room-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 25px;
+}
+
+.page {
+  height: calc(100% - 80px);
+  overflow: scroll;
+}
+
+.card-pile {
+  max-width: 150px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.deck-stats {
+  background: white;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.stats {
+  width: 250px;
+  height: 500px;
+  background-color: #553d03;
+  color: white;
+  padding: 10px;
+  padding-bottom: 20px;
+  position: absolute;
+  right: 0px;
+  box-shadow: 4px 4px 4px rgb(34, 34, 34);
+}
+
+.your-hand-column {
+  width: 70%;
+  background-color: black;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  bottom: 240;
+}
+
+.your-hand {
+  position: absolute;
+  overflow: auto;
+  bottom: 0;
+  height: 239px;
+  width: 70%;
+  left: 0;
+  border: solid black 3px;
+  background: #553d03;
+}
+
+.your-matches-column {
+  width: 30%;
+  position: absolute;
+  right: 0;
+  bottom: 240;
+  background-color: white;
+}
+
+.your-matches {
+  overflow: scroll;
+  position: absolute;
+  bottom: 0;
+  height: 239px;
+  width: 30%;
+  right: 0;
+  background: #553d03;
+  border: solid black 3px;
+}
+
+.your-no-matches-column {
+  width: 100%;
+  background-color: white;
+  bottom: 0;
+}
+
+.personal-stats {
+  margin-top: 10px;
+}
+
+.stats_container {
+  background: rgba(0,0,0,0.45);
+}
+
+.stats-header {
+  background: $yellow;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 10 20 10 20px;
+}
+
+.list-stats {
+  border-bottom: 1px solid black;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: $yellow;
+}
+
+.card-box {
+  margin-top: 30px;
+}
+
+.player-list {
+  width: 50%;
+  order: 0;
+}
+
+.taking-turn {
+  width: 50%;
+  order: 1;
+  font-size: 20px;
+  color: white;
+}
+
+.no_margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.game-item {
+  background-color: white;
+  justify-content: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 20px;
+  padding-top: 35px;
+  margin-right: 30px;
+  margin-bottom: 0px;
+  width: 150px;
+  height: 100px;
+  box-shadow: 5px 10px 19px rgb(38, 37, 37);
+}

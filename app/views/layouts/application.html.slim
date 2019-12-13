@@ -1,0 +1,11 @@
+html 
+  head
+    title = yield(:title)
+    == render 'layouts/rails_default'
+    == render 'layouts/shim'
+  body
+    == render 'layouts/header'
+    .container
+      - flash.each do |message_type, message|
+        .alert class="alert-#{message_type}" = message
+      == yield

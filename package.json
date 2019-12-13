@@ -1,0 +1,30 @@
+{
+  "name": "go_fish_rails",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-react": "^7.7.4",
+    "@rails/actioncable": "^6.0.0-alpha",
+    "@rails/activestorage": "^6.0.0-alpha",
+    "@rails/ujs": "^6.0.0-alpha",
+    "@rails/webpacker": "^4.2.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react_ujs": "^2.6.0",
+    "turbolinks": "^5.2.0"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "test": "jest --watch",
+    "test_ci": "jest",
+    "test_debug": "CI=1 node --inspect-brk ./node_modules/.bin/jest --runInBand --no-cache --env=jsdom",
+    "eslint": "eslint 'app/**/*.js' 'spec/**/*.js'",
+    "stylelint": "stylelint app/javascript/stylesheets/**/*.{css,scss}"
+  }
+}

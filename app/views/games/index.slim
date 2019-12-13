@@ -1,0 +1,12 @@
+body 
+  h1 Pending Games
+  .flex
+    - @games.each do |game|
+      .flex-column
+        p.flex.game-item = game.name
+        .row
+          = button_to "Join", join_game_path(game.id), class: "btn btn-join"
+        .row
+          = button_to "Spectate", spectate_path, class: "btn btn-spectate"
+  = link_to "Create Game", new_game_path, class: "btn btn-yellow"
+  = link_to "Logout", logout_path, class: "btn btn-yellow", method: :delete
