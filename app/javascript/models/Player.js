@@ -1,6 +1,6 @@
 import PlayingCard from './PlayingCard.js'
 
-class Player {
+export default class Player {
   constructor(json) {
     this._name = json.name
     this._hand = []
@@ -31,10 +31,8 @@ class Player {
   }
 
   createCards(json) {
-    json.forEach(card => {
-      this._hand.push(new PlayingCard(card.rank, card.suit))
+    json.forEach(cardJson => {
+      this._hand.push(new PlayingCard(cardJson.rank, cardJson.suit))
     })
   }
 }
-
-export default Player

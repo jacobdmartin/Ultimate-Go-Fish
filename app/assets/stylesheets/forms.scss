@@ -32,3 +32,15 @@
   align-content: center;
   box-shadow: 3px 3px 4px rgb(34, 34, 34)
 }
+
+.player__box--selected {
+  width: 170px;
+  border-radius: 5px;
+  align-self: left;
+  height: 50px;
+  margin-top: 15px;
+  position: relative;
+  background-color: #F0AD4E;
+  align-content: center;
+  box-shadow: 3px 3px 4px rgb(34, 34, 34)
+}

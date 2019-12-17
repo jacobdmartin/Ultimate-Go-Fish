@@ -33,6 +33,17 @@ class PlayingCard {
   cssId() {
     return `${this.rank()}-${this.suit()}`
   }
+
+  imageName() {
+    if (this.rank() == "10") {
+      return `${this.rank()}${this.suit()[0]}.jpg`
+    } else {
+      return `${this.rank()[0]}${this.suit()[0]}.jpg`
+    }
+  }
 }
 
+const imageHash = {'8C': require('../images/card_faces/8C.jpg')}
+
 export default PlayingCard
+export { imageHash }

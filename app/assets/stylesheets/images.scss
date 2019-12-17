@@ -4,6 +4,14 @@
   margin-left: -60px;
 }
 
+.card_image-selected {
+  max-width: 15%;
+  border-radius: 7px;
+  margin-left: -60px;
+  border: 10px orange solid;
+  //Box shadow possible alternative
+}
+
 .card_image:first-child {
   margin-left: 0;
 }

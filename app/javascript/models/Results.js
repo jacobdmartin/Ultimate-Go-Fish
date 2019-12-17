@@ -1,11 +1,11 @@
 class Results {
-  constructor(player, opponent, rank, messageType, cardCount = '', fishedCard = '') {
-    this.player = player
-    this.opponent = opponent
-    this.rank = rank
-    this.messageType = messageType
-    this.cardCount = cardCount
-    this.fishedCard = fishedCard
+  constructor(json) {
+    this.player = json.player
+    this.opponent = json.opponent
+    this.rank = json.rank
+    this.messageType = json.messageType
+    this.cardCount = json.cardCount
+    this.fishedCard = json.fishedCard
     this.message = ''
   }
 

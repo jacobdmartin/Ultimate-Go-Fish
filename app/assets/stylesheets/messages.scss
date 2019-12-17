@@ -1,6 +1,7 @@
 .result_message {
   overflow: auto;
-  max-width: 75%;
+  position: absolute;
+  width: 75%;
   height: 70px;
   border-radius: 20px;
   padding-left: 7px;
@@ -8,6 +9,7 @@
   border: 2px #553d03 solid;
   align-items: center;
   margin-top: 90px;
+  margin-left: -40;
 }
 
 .result_message:hover {

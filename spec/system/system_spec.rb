@@ -1,12 +1,15 @@
 require "rails_helper"
 
 RSpec.describe 'System', type: :system do
+  let(:session1) { Capybara::Session.new(:selenium_chrome_headless, app) }
+  let(:session2) { Capybara::Session.new(:selenium_chrome_headless, app) }
 
   let(:user_fred) { create(:user, name: 'Fred', password: 'examplepassword')}
   let(:user_bill) { create(:user, name: 'Bill', password: 'examplepassword', password_confirmation: 'examplepassword')}
 
   before :each do
-    session = Capybara::Session.new(:selenium_chrome_headless, app)
+    session1 = Capybara::Session.new(:selenium_chrome_headless, app)
+    session2 = Capybara::Session.new(:selenium_chrome_headless, app)
     visit root_path
   end
 
@@ -53,15 +56,12 @@ RSpec.describe 'System', type: :system do
 
   describe 'Join Game', type: :system do
     it 'expects the page to change when the user clicks the join game button' do
-      fill_in 'Name', with: 'Caleb'
-      fill_in 'Password', with: "examplepassword"
-      fill_in 'Password confirmation', with: "examplepassword"
-      click_on 'Sign Up'
-      click_on 'Create Game'
-      fill_in 'Name', with: 'Testing Game'
-      click_on 'Create Game'
-      expect(page.body).to have_content("Jake")
-      expect(page.body).to have_content("Your Cards")
+      log_in(user_fred, session1)
+      create_game("Test Game", session1)
+      log_in(user_bill, session2)
+
+      expect(session1).to have_content("Bill")
+      expect(session1).to have_content("Your Cards")
     end
   end
 
@@ -74,5 +74,19 @@ RSpec.describe 'System', type: :system do
     #   click_on 'spectate'
     #   expect(page.body).to have_content("You are spectating the game")
     # end
+  end
+
+  def log_in(existing_user, session)
+    session.visit login_path
+    session.fill_in 'Name', with: existing_user.name
+    session.fill_in 'Password', with: existing_user.password
+    session.click_on 'Log In'
+  end
+
+  def create_game(name, session)
+    session.click_on 'Create Game'
+    session.fill_in 'Name', with: name
+    session1.choose('2 Players')
+    session.click_on 'Create Game'
   end
 end
