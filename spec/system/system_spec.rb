@@ -6,7 +6,7 @@ RSpec.describe 'System', type: :system do
   let(:user_bill) { create(:user, name: 'Bill', password: 'examplepassword', password_confirmation: 'examplepassword')}
 
   before :each do
-    session = Capybara::Session.new(:selenium_chrome_headless, app) 
+    session = Capybara::Session.new(:selenium_chrome_headless, app)
     visit root_path
   end
 
@@ -60,6 +60,7 @@ RSpec.describe 'System', type: :system do
       click_on 'Create Game'
       fill_in 'Name', with: 'Testing Game'
       click_on 'Create Game'
+      expect(page.body).to have_content("Jake")
       expect(page.body).to have_content("Your Cards")
     end
   end

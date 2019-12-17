@@ -26,7 +26,7 @@ RSpec.describe GoFish, type: :model do
     @game2.add_player(judah)
     @game2.start
   end
-  
+
   def create_and_start_game_with_one_player
     @game1 = GoFish.new
     @game1.add_player(moses)
@@ -39,6 +39,20 @@ RSpec.describe GoFish, type: :model do
       create_and_start_game_with_one_player
       expect(@game1.players.count).to eq 2
       expect(@game1.players[0].name).to eq "Moses"
+    end
+  end
+
+  describe 'state_for' do
+    it 'returns each of the specific json strings pulled from the json string game' do
+      create_and_start_game_with_one_player
+      data = @game1.state_for(moses)
+      expect(data[:player]["name"]).to eq("Moses")
+      expect(data[:opponents]).to_not include("Moses")
+      expect(data[:opponents]).to include("Aaron")
+      expect(data[:card_deck]["card_deck"].count).to eq(38)
+      expect(data[:results].length).to be(@game1.results.length)
+      expect(data[:viewer_results].length).to be(@game1.viewer_results.length)
+      expect(data[:opponent_results].length).to be(@game1.opponent_results.length)
     end
   end
 
@@ -140,7 +154,7 @@ RSpec.describe GoFish, type: :model do
             @game1.take_turn(@game1.players[0], @game1.players[1], five_of_clubs.rank)
             expect(@game1.players[0].hand).to include(five_of_hearts)
           end
-  
+
           it 'lets the current player go again' do
             create_and_start_game_with_one_player
             @game1.players[0].hand = [five_of_clubs, four_of_spades]
@@ -148,7 +162,7 @@ RSpec.describe GoFish, type: :model do
             @game1.card_deck.card_deck = [four_of_hearts, five_of_hearts]
             @game1.take_turn(@game1.players[0], @game1.players[1], five_of_clubs.rank)
             expect(@game1.current_player).to eq @game1.players[0]
-          end  
+          end
         end
 
         context 'don\'t receive that they ask from from the deck' do
@@ -169,7 +183,7 @@ RSpec.describe GoFish, type: :model do
             @game1.card_deck.card_deck = [jack_of_clubs, queen_of_clubs]
             @game1.take_turn(@game1.players[0], @game1.players[1], four_of_spades.rank)
             expect(@game1.current_player.name).to eq "Aaron"
-          end 
+          end
         end
 
         context 'no more cards in the deck' do

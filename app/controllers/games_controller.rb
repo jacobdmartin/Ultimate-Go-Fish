@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  # skip_before_action :verify_authenticty_token, only :update
 
   def index
     @games = Game.all
@@ -11,6 +12,10 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @session_player = @game.go_fish.find_player_by_name(current_user.name)
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @game.go_fish.state_for(@session_player) }
+    end
   end
 
   def create

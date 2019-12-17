@@ -61,6 +61,17 @@ class GoFish
     }
   end
 
+  def state_for(player)
+    {
+      player: player.as_json,
+      opponents: players.reject{|game_player| game_player.name == player.name }.as_json,
+      card_deck_count: card_deck.card_deck.count,
+      results: results.as_json,
+      opponent_results: opponent_results.as_json,
+      viewer_results: viewer_results.as_json
+    }
+  end
+
   def players_to_object(players)
     players.each do |player_hash|
       add_player(Player.from_json(player_hash))

@@ -18,6 +18,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
+  gem 'jasmine'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rolemodel_rails', github: 'RoleModel/rolemodel_rails'
   gem 'factory_bot_rails'

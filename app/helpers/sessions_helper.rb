@@ -7,6 +7,10 @@ module SessionsHelper
   def current_user
     if session[:user_id]
       @current_user ||= User.find_by(id: session[:user_id])
+    elsif request.format.symbol == :json
+      authenticate_or_request_with_http_basic do |name, _|
+        @current_user ||= User.find_by(name: name)
+      end
     end
   end
 

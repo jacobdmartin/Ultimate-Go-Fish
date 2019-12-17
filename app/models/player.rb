@@ -13,6 +13,7 @@ class Player
     return nil if player_hash.blank?
     player = Player.new(player_hash["name"])
     player.build_player(player_hash)
+    return player
   end
 
   def build_player(player_hash)
@@ -45,7 +46,7 @@ class Player
     if no_cards? == false
       number_of_ranks = Hash.new(0)
       hand.each {|card| number_of_ranks[card.rank] += 1}
-      number_of_ranks.each do |rank, cards| 
+      number_of_ranks.each do |rank, cards|
         if cards == 4
           matches = add_book(rank)
           true
@@ -67,7 +68,7 @@ class Player
   def ==(other)
     name == other&.name && hand == other.hand
   end
-  
+
   private
 
   def players_rank_number
