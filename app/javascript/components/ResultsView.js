@@ -16,8 +16,8 @@ export default class ResultsView extends React.Component {
   }
 
   resultsLoop() {
-    return this.props.results.map(result => {
-      return <p>{result.messageFor(this.props.player.name())}</p>
+    return this.props.results.map((result, i) => {
+      return <p key={i}>{result}</p>
     })
   }
 }

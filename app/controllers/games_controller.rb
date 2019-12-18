@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  # skip_before_action :verify_authenticty_token, only :update
+  skip_before_action :verify_authenticity_token, only: :update
 
   def index
     @games = Game.all
@@ -46,12 +46,15 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    @session_player = @game.go_fish.find_player_by_name(current_user.name)
-    @card = turn_params[:hand]
-    @player = @game.go_fish.find_player_by_name(turn_params[:players])
-    @game.go_fish.take_turn(@session_player, @player, @card)
+    session_player = @game.go_fish.find_player_by_name(current_user.name)
+    rank = params[:rank]
+    player = @game.go_fish.find_player_by_name(params[:opponent])
+    @game.go_fish.take_turn(session_player, player, rank)
     @game.save
-    redirect_to game_path(@game)
+    respond_to do |format|
+      format.html { redirect_to game_path(@game) }
+      format.json { render json: @game.go_fish.state_for(session_player) }
+    end
   end
 
   def watch
@@ -62,9 +65,5 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:name, :player_num)
-  end
-
-  def turn_params
-    params.require(:game).permit(:hand, :players)
   end
 end

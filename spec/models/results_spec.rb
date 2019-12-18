@@ -25,8 +25,4 @@ RSpec.describe Results, type: :model do
       expect(output_message).to eq("You took 1 5 from James")
     end
   end
-
-  def create_turn
-
-  end
 end

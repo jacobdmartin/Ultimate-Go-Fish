@@ -66,7 +66,7 @@ class GoFish
       player: player.as_json,
       opponents: players.reject{|game_player| game_player.name == player.name }.as_json,
       card_deck_count: card_deck.card_deck.count,
-      results: results.as_json,
+      results: results.map{ |result| result.message_for(player) },
       opponent_results: opponent_results.as_json,
       viewer_results: viewer_results.as_json
     }
@@ -134,8 +134,6 @@ class GoFish
     end
   end
 
-  # private
-
   def player_takes_card(asking_player, asked_player, rank)
     given_cards = asked_player.remove_cards_from_hand(rank)
     asking_player.add_players_cards_to_hand(given_cards)
@@ -143,30 +141,6 @@ class GoFish
     total_matches
     cards_left_for(asking_player)
     results << Results.new(asking_player, asked_player, rank, given_cards.count, :take_message)
-  end
-
-  def total_matches
-    empty_hands = 0
-    if card_deck.cards_left == 0
-      players.each do |player|
-        if player.hand.count == 0
-          empty_hands += 1
-          return self.match_num = 13 if empty_hands == players.count
-        end
-      end
-    end
-  end
-
-  def cards_left_for(player)
-    if player.no_cards? == true
-      if card_deck.cards_left > 0
-        if card_deck.cards_left >= 5
-          5.times {player.add_cards_to_hand(card_deck.deal)}
-        elsif card_deck.cards_left < 5
-          card_deck.cards_left.times {player.add_cards_to_hand(card_deck.deal)}
-        end
-      end
-    end
   end
 
   def player_go_fish(asking_player, asked_player, rank)
@@ -195,6 +169,30 @@ class GoFish
       matches = asking_player.count_matches
       total_matches
       results << Results.new(asking_player, asked_player, rank, new_card, :go_fish_message)
+    end
+  end
+
+  def total_matches
+    empty_hands = 0
+    if card_deck.cards_left == 0
+      players.each do |player|
+        if player.hand.count == 0
+          empty_hands += 1
+          return self.match_num = 13 if empty_hands == players.count
+        end
+      end
+    end
+  end
+
+  def cards_left_for(player)
+    if player.no_cards? == true
+      if card_deck.cards_left > 0
+        if card_deck.cards_left >= 5
+          5.times {player.add_cards_to_hand(card_deck.deal)}
+        elsif card_deck.cards_left < 5
+          card_deck.cards_left.times {player.add_cards_to_hand(card_deck.deal)}
+        end
+      end
     end
   end
 

@@ -65,9 +65,9 @@ class Player
     rank_arr
   end
 
-  def ==(other)
-    name == other&.name && hand == other.hand
-  end
+  # def ==(other)
+  #   name == other&.name && hand == other.hand
+  # end
 
   private
 

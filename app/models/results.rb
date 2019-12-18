@@ -14,7 +14,6 @@ class Results
     @fished_card = fished_card
     @message_type = message_type
   end
-  #switch to keywoard arguments
 
   def self.from_json(results_hash)
     return nil if results_hash.blank?

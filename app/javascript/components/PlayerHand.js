@@ -49,10 +49,4 @@ export default class PlayerHand extends React.Component {
       </React.Fragment>
     )
   }
-
-  _setAttributes(element, id, classType, type) {
-    element.setAttribute("type", type)
-    element.setAttribute("class", classType)
-    element.setAttribute("id", id)
-  }
 }

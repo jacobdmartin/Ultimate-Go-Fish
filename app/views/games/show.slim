@@ -1,7 +1,7 @@
 section
   .flex.flex-row.top-box
     ul.player-list
-      = react_component("Game", { game: @game.go_fish.state_for(@session_player) })
+      = react_component("Game", { game: @game.go_fish.state_for(@session_player), gameId: @game.id })
 
 //Passing in the props here is faster, because it spins off a node process in the background, which then generates the html and then all the JS has to do is hydrate that and display it
 //It is also easier to test the API, and makes system testing much easier

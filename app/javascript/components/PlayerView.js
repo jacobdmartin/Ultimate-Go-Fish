@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+const pathToImages = require.context("../images", true)
 
 export default class PlayerView extends React.Component {
   static propTypes = {
     player: PropTypes.object.isRequired,
     opponents: PropTypes.array.isRequired,
-    selectedOpponent: PropTypes.object,
+    selectedOpponent: PropTypes.string,
     onSelectedOpponent: PropTypes.func.isRequired
   }
 
@@ -27,10 +28,16 @@ export default class PlayerView extends React.Component {
         className = "flex player__box player__list--text"
       }
       return (
-        <button key={player.name} className={className} onClick={() => { this.props.onSelectedOpponent(player)} }>{player.name}</button>
+        <img key={player.name} className={className} src={pathToImages(`./group_multiplayer_213243.png` )} onClick={() => { this.props.onSelectedOpponent(player)} } value={player.name} />
       )
     })
   }
+
+  // <React.Component>
+  //   <img key={player.name} className={className} src={pathToImages(`./group_multiplayer_213243.png` )} onClick={() => { this.props.onSelectedOpponent(player)} } value={player.name} />
+  //   <button onClick={() => { this.props.onSelectedOpponent(player)} }>Ask</button>
+  // </React.Component>
+// <button key={player.name} className={className} onClick={() => { this.props.onSelectedOpponent(player)} }>{player.name}</button>
 
   render() {
     return (

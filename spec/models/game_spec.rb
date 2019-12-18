@@ -10,7 +10,7 @@ RSpec.describe Game, type: :model do
   let(:eight_of_hearts) { PlayingCard.new("8", "Hearts")}
   let(:eight_of_diamonds) { PlayingCard.new("8", "Diamonds")}
   let(:king_of_hearts) { PlayingCard.new("King", "Hearts")}
-  
+
   let(:bill) { Player.new("Bill")}
   let(:connie) { Player.new("Connie")}
 
@@ -49,12 +49,6 @@ RSpec.describe Game, type: :model do
       end
     end
 
-    describe 'results_to_object' do      
-      it 'expects the results of the GoFish game to stay the same when loaded from json' do
-        expect(@inflated_game.results).to eq(@go_fish_game.results)
-      end
-    end
-    
     describe 'current_player_to_object' do
       it 'expects the current_player of the GoFish game to stay the same when loaded from json' do
         expect(@inflated_game.current_player).to eq(@go_fish_game.current_player)
