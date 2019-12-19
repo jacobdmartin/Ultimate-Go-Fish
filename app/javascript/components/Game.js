@@ -22,25 +22,16 @@ export default class Game extends React.Component {
     }
   }
 
-  buttonHandler() {
-    fetch(`/games/${this.props.gameId}.json`, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'PATCH',
-      body: JSON.stringify({ opponent: this.state.selectedOpponent, rank: this.state.selectedCardRank })
-    }).then(response => response.json()).then(data => {
-      const player = new Player(data.player)
-      this.setState((prevState) => (
-        {
-          game: data,
-          player: player,
-          results: data.results,
-          selectedCardRank: '',
-          selectedOpponent: ''
-        })
-      )
+  componentDidMount() {
+    const pusher = new Pusher('356a86fa22a4c249ad9a', {
+      cluster: 'us2',
+      encrypted: true
+    })
+
+    const channel = pusher.subscribe('go-fish')
+    channel.bind('update-game', data => {
+      console.log("Hi")
+      this._fetchGame()
     })
   }
 
@@ -56,8 +47,43 @@ export default class Game extends React.Component {
 
   _takeTurnIfPossible() {
     if (this.state.selectedOpponent !== '' && this.state.selectedCardRank !== '') {
-      this.buttonHandler()
+      this._fetchRequest()
     }
+  }
+
+  _fetchGame() {
+    fetch(`/games/${this.props.gameId}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(data => data.json()).then(this._setNewState.bind(this))
+  }
+
+  _fetchRequest() {
+    fetch(`/games/${this.props.gameId}.json`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({ opponent: this.state.selectedOpponent, rank: this.state.selectedCardRank })
+    }).then(response => response.json()).then(data => {
+      this._setNewState(data)
+    })
+  }
+
+  _setNewState(data) {
+    const player = new Player(data.player)
+    this.setState((prevState) => (
+      {
+        game: data,
+        player: new Player(data.player),
+        results: data.results,
+        selectedCardRank: '',
+        selectedOpponent: ''
+      })
+    )
   }
 
   render() {

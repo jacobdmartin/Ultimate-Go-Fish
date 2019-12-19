@@ -47,9 +47,24 @@ RSpec.describe GoFish, type: :model do
       create_and_start_game_with_one_player
       data = @game1.state_for(moses)
       expect(data[:player]["name"]).to eq("Moses")
+    end
+
+    it 'makes sure the opponents don\'t include the user' do
+      create_and_start_game_with_one_player
+      data = @game1.state_for(moses)
       expect(data[:opponents]).to_not include("Moses")
       expect(data[:opponents]).to include("Aaron")
+    end
+
+    it 'makes sure the card_deck has the right amount of cards in it' do
+      create_and_start_game_with_one_player
+      data = @game1.state_for(moses)
       expect(data[:card_deck]["card_deck"].count).to eq(38)
+    end
+
+    it 'makes sure the different results all return in the results array' do
+      create_and_start_game_with_one_player
+      data = @game1.state_for(moses)
       expect(data[:results].length).to be(@game1.results.length)
       expect(data[:viewer_results].length).to be(@game1.viewer_results.length)
       expect(data[:opponent_results].length).to be(@game1.opponent_results.length)
