@@ -26,7 +26,7 @@ RSpec.describe "UsersLogins", type: :system do
   describe 'Authentication' do
     it 'expects the session to be redirected to the login page because it does not have authorization' do
       visit games_path
-      expect(page).to have_current_path(login_url, url: true)
+      expect(page).to have_current_path(login_path)
     end
   end
 end

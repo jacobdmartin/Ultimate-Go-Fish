@@ -30,7 +30,6 @@ export default class Game extends React.Component {
 
     const channel = pusher.subscribe('go-fish')
     channel.bind('update-game', data => {
-      console.log("Hi")
       this._fetchGame()
     })
   }

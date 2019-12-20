@@ -64,11 +64,11 @@ class GoFish
   def state_for(player)
     {
       player: player.as_json,
-      opponents: players.reject{|game_player| game_player.name == player.name }.as_json,
+      opponents: players.reject{|game_player| game_player.name == player.name },
       card_deck_count: card_deck.card_deck.count,
       results: results.map{ |result| result.message_for(player) },
-      opponent_results: opponent_results.as_json,
-      viewer_results: viewer_results.as_json
+      opponent_results: opponent_results,
+      viewer_results: viewer_results
     }
   end
 
@@ -148,14 +148,7 @@ class GoFish
     result = Results.new(asking_player, asked_player, rank, new_card, :fished_asked_rank_message)
     matches = asking_player.count_matches
     total_matches
-    if new_card == nil
-      advance_player
-    else
-      if asking_player == players[0]
-        self.results = []
-      end
-      player_fished_asked_rank(asking_player, asked_player, new_card, rank)
-    end
+    new_card_value(asking_player, asked_player, rank, new_card)
   end
 
   def player_fished_asked_rank(asking_player, asked_player, new_card, rank)
@@ -206,6 +199,19 @@ class GoFish
 
   def advance_player
     current_player == players.last ? self.current_player = players[0] : self.current_player = players[players.index(current_player) + 1]
+  end
+
+  private
+
+  def new_card_value(asking_player, asked_player, rank, new_card)
+    if new_card == nil
+      advance_player
+    else
+      if asking_player == players[0]
+        self.results = []
+      end
+      player_fished_asked_rank(asking_player, asked_player, new_card, rank)
+    end
   end
 end
 

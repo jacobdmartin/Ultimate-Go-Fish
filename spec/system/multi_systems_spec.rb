@@ -25,16 +25,14 @@ RSpec.describe 'Game', type: :system do
   end
 
   it 'expects the page to display 2 players' do
-    log_in(user_bill, session1)
+
+    sign_up("Cassie", session1)
     create_game("Game That Has Started", session1)
-    expect(session1).to have_css(".player__list--text", count: 1)
-    
-    log_in(user_fred, session2)
+    sign_up("John", session2)
     session2.click_on 'Join'
-    expect(session2).to have_css(".player__list--text", count: 2)
-    # session1.expect(refresh).to change(page) #look up documentation on refreshing a session page
+    expect(session2.body).to have_css(".player__box", count: 1)
   end
-  
+
   it 'expects the game to have started because two people have joined' do
     log_in(user_bill, session1)
     create_game("Game That Has Started", session1)
@@ -59,35 +57,35 @@ RSpec.describe 'Game', type: :system do
     expect(@game.go_fish.current_player).to eq(@game.go_fish.players[0])
   end
 
-  describe 'turn' do
-    it 'expects current_player to have popup on their screen' do
-      start_game_with_bill_and_fred
-      session1.refresh
-      expect(session1).to have_css(".overlay")
-    end
-  end
-  
-  describe 'the end of the game' do 
+  describe 'the end of the game' do
     it 'expects the end game screen to pop up because the game has finished' do
-      
+
     end
-    
+
     it 'expects the game to automatically delete after all players exit the game' do
-      
+
     end
   end
 
-  def log_in(existing_user, session)
+  def log_in(user, session)
     session.visit login_path
-    session.fill_in 'Name', with: existing_user.name
-    session.fill_in 'Password', with: existing_user.password
+    session.fill_in 'Name', with: user.name
+    session.fill_in 'Password', with: user.password
     session.click_on 'Log In'
+  end
+
+  def sign_up(username, session)
+    session.visit root_path
+    session.fill_in 'user_name', with: username
+    session.fill_in 'Password', with: "examplepassword"
+    session.fill_in 'Password confirmation', with: "examplepassword"
+    session.click_on 'Sign Up'
   end
 
   def create_game(name, session)
     session.click_on 'Create Game'
     session.fill_in 'Name', with: name
-    session1.choose('2 Players')
+    session.choose('2 Players')
     session.click_on 'Create Game'
   end
 

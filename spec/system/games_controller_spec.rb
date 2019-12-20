@@ -16,8 +16,7 @@ RSpec.describe GamesController, type: :system do
       click_on 'Create Game'
       fill_in 'Name', with: 'Test Game'
       click_on 'Create Game'
-      expect(page).to have_css("data-react-class")
-      expect(page).to have_http_status(:success)
+      expect(page).to have_content("Game Successfully Created")
     end
   end
 
