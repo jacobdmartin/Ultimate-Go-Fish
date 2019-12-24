@@ -41,6 +41,7 @@ class GamesController < ApplicationController
     @session_player = @game.go_fish.find_player_by_name(current_user.name)
     game_data.add_player(player)
     @game.save
+    Pusher.trigger("go-fish", 'update-game', { data: '' })
     redirect_to game_path(@game)
   end
 
@@ -51,9 +52,7 @@ class GamesController < ApplicationController
     player = @game.go_fish.find_player_by_name(params[:opponent])
     @game.go_fish.take_turn(session_player, player, rank)
     @game.save
-
     Pusher.trigger("go-fish", 'update-game', { data: '' })
-
     respond_to do |format|
       format.html { redirect_to game_path(@game) }
       format.json { render json: @game.go_fish.state_for(session_player) }

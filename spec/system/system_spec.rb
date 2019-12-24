@@ -1,9 +1,6 @@
 require "rails_helper"
 
 RSpec.describe 'System', type: :system, js: true do
-  let(:session1) { Capybara::Session.new(:selenium_chrome, app) }
-  let(:session2) { Capybara::Session.new(:selenium_chrome, app) }
-
   let(:user_fred) { create(:user, name: 'Fred', password: 'examplepassword')}
   let(:user_bill) { create(:user, name: 'Bill', password: 'examplepassword', password_confirmation: 'examplepassword')}
 
@@ -11,7 +8,7 @@ RSpec.describe 'System', type: :system, js: true do
     visit root_path
   end
 
-  describe 'Sign Up', type: :system do
+  describe 'Sign Up' do
     it 'allows a new user to sign up' do
       expect {
         fill_in 'Name', with: 'Caleb'
@@ -23,17 +20,15 @@ RSpec.describe 'System', type: :system, js: true do
     end
   end
 
-  # TODO: Why does this test pass when chrome: true, and fail when I don't set chrome: true?
-  # TODO: Why does this test pass when I focus it, and fail when I don't?
-  describe 'Log In', type: :system, chrome: true do
+  describe 'Log In' do
     it 'allows an existing user to login' do
-      existing_user = create(:user, name: 'Caleb', password: "evenIfUd0n't")
+      existing_user = create(:user, name: 'Jake', password: "evenIfUd0n't")
+      visit root_path
       click_on 'Sign In'
-      expect {
-        fill_in 'Name', with: existing_user.name
-        fill_in 'Password', with: existing_user.password
-        click_on 'Log In'
-      }.to_not change(User, :count)
+      expect(page).to have_css("h1", text: "Sign In")
+      fill_in 'Name', with: existing_user.name
+      fill_in 'Password', with: existing_user.password
+      click_on 'Log In'
       expect(page).to have_content('Pending Games')
     end
 
@@ -43,7 +38,7 @@ RSpec.describe 'System', type: :system, js: true do
     end
   end
 
-  describe 'Create Game', type: :system do
+  describe 'Create Game' do
     it 'expects the page to change when the user clicks the create game button' do
       sign_up("Danny", page)
       create_game("Test Game", page)
@@ -51,7 +46,10 @@ RSpec.describe 'System', type: :system, js: true do
     end
   end
 
-  describe 'Join Game', type: :system do
+  describe 'Join Game' do
+    let(:session1) { Capybara::Session.new(:selenium_chrome_headless, app) }
+    let(:session2) { Capybara::Session.new(:selenium_chrome_headless, app) }
+
     it 'expects the page to change when the user clicks the join game button' do
       sign_up("Rodgers", session1)
       create_game("Game 455", session1)
@@ -62,18 +60,21 @@ RSpec.describe 'System', type: :system, js: true do
     end
   end
 
-  describe 'Pusher', type: :system do
-    fit 'expects the page to refresh after taking a turn' do
+  describe 'Pusher' do
+    let(:session1) { Capybara::Session.new(:selenium_chrome, app) }
+    let(:session2) { Capybara::Session.new(:selenium_chrome, app) }
+
+    it 'expects the page to refresh after taking a turn' do
       game_setup
       expect(session2.body).to have_css(".card_image")
       expect(session1.body).to have_css(".card_image")
     end
   end
 
-  def log_in(existing_user, session)
+  def log_in(user, session)
     session.click_on 'Sign In'
-    session.fill_in 'user_name', with: existing_user.name
-    session.fill_in 'Password', with: existing_user.password
+    session.fill_in 'user_name', with: user.name
+    session.fill_in 'Password', with: user.password
     session.click_on 'Log In'
   end
 
@@ -93,9 +94,9 @@ RSpec.describe 'System', type: :system, js: true do
   end
 
   def game_setup()
-    sign_up("Captain", session1)
+    sign_up("Jansen", session1)
     create_game("Game 455", session1)
-    sign_up("America", session2)
+    sign_up("Veronica", session2)
     session2.click_on 'Join'
   end
 end

@@ -24,17 +24,62 @@ $gray-medium-light: #eaeaea;
 $yellow: #ffda55;
 
 body {
-  background-color: #008042;
-  height: calc(100% - 80px);
-  width: auto;
-  margin: auto;
-  font: 12pt Helvetica, sans-serif;
-  background-image: url(https://www.worshipwoodworks.com/app/uploads/2013/12/p-5797-580.09-2.jpg);
-  overflow: scroll;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  background-image: url(https://www.10wallpaper.com/wallpaper/2560x1600/1606/Deck_chairs_beach_vacation-Summer_Scenery_HD_Wallpaper_2560x1600.jpg);
+  background-size: cover;
 }
 
 container {
   display: flex;
+}
+
+.page-section {
+  width: 100%;
+  padding-top: 200px;
+  padding-bottom: 100px;
+  text-align: center;
+  border-bottom: 2px solid white;
+}
+
+.page-section--background {
+  background-color: #2e2d2d;
+  opacity: 50%;
+}
+
+.page-section--text {
+  font-size: 100px;
+  color: white;
+}
+
+.page-section--small-text {
+  font-size: 30px;
+  color: white;
+  margin-bottom: 150px;
+}
+
+.page-section--button {
+  padding: 10px 30px;
+  color: white;
+  background-color: transparent;
+  border-radius: 25px;
+  border: 1px solid white;
+}
+
+.page-section--scroll-button {
+  padding: 10px 30px;
+  color: white;
+  background-color: transparent;
+  border-radius: 25px;
+  border: 1px solid white;
+}
+
+.page-section--button:hover, .page-section--scroll-button:hover {
+  padding: 10px 30px;
+  color: black;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid black;
 }
 
 .room-row {
@@ -170,4 +215,14 @@ container {
   width: 150px;
   height: 100px;
   box-shadow: 5px 10px 19px rgb(38, 37, 37);
+}
+
+.text-white {
+  color: white;
+}
+
+
+.text-space {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

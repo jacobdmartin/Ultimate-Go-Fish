@@ -44,3 +44,21 @@
   align-content: center;
   box-shadow: 3px 3px 4px rgb(34, 34, 34)
 }
+
+.form-container {
+  color: black;
+  // background-color: #0496ec;
+  border: 5px solid black;
+  border-radius: 10px;
+  margin-top: 15%;
+  padding-bottom: 35px;
+}
+
+.form-input {
+  color: black;
+  padding: 9px 12px;
+  border: none;
+  background: grey;
+  opacity: 70%;
+  text-align: center;
+}

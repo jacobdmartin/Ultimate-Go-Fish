@@ -42,11 +42,14 @@ RSpec.describe GoFish, type: :model do
     end
   end
 
+  # TODO: Do I need to create a Game in the DB first then add a new GoFish object to that?
+  #Or is creating a GoFish object enough?
   describe 'state_for' do
     it 'returns each of the specific json strings pulled from the json string game' do
-      create_and_start_game_with_one_player
-      data = @game1.state_for(moses)
-      expect(data[:player]["name"]).to eq("Moses")
+      game.add_player(moses)
+      game.start
+      data = game.state_for(moses)
+      expect(data.player.name).to eq("Moses")
     end
 
     it 'makes sure the opponents don\'t include the user' do
@@ -181,7 +184,6 @@ RSpec.describe GoFish, type: :model do
         end
 
         context 'don\'t receive that they ask from from the deck' do
-
           it 'gives player a new card from the deck that isn\'t the rank they asked for' do
             create_and_start_game_with_one_player
             @game1.players[0].hand = [five_of_clubs, four_of_spades]

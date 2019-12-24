@@ -26,10 +26,9 @@
 }
 
 .card_picture {
-  max-width: 200px;
-  position: relative;
-  top: 25%;
-  margin-left: calc(53% - 160px);
-  box-shadow: 3px 3px 4px rgb(34, 34, 34);
-  margin-bottom: 32px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+  width: 35%;
 }

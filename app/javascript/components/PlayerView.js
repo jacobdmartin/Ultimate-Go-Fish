@@ -19,7 +19,7 @@ export default class PlayerView extends React.Component {
     }
   }
 
-  _renderPlayers() {
+  _renderPlayersIcon() {
     return this.props.opponents.map(player => {
       let className
       if (player === this.props.selectedOpponent) {
@@ -33,17 +33,23 @@ export default class PlayerView extends React.Component {
     })
   }
 
+  _renderPlayersNameButton() {
+    return (
+      <button key={this.props.player.name} className="btn btn-warning btn-lg" onClick={() => { this.props.onSelectedOpponent(player)} }>Ask</button>
+    )
+  }
+
   // <React.Component>
   //   <img key={player.name} className={className} src={pathToImages(`./group_multiplayer_213243.png` )} onClick={() => { this.props.onSelectedOpponent(player)} } value={player.name} />
   //   <button onClick={() => { this.props.onSelectedOpponent(player)} }>Ask</button>
   // </React.Component>
-// <button key={player.name} className={className} onClick={() => { this.props.onSelectedOpponent(player)} }>{player.name}</button>
 
   render() {
     return (
       <React.Fragment>
         <div>
-          {this._renderPlayers()}
+          {this._renderPlayersIcon()}
+          {this._renderPlayersNameButton()}
         </div>
       </React.Fragment>
     )
