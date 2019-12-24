@@ -1,7 +1,4 @@
-require_relative 'go_fish'
-require_relative 'player'
 require_relative 'playing_card'
-
 
 class CardDeck
   attr_reader :rank, :suit
@@ -21,7 +18,7 @@ class CardDeck
 
   def build_deck(deck_hash)
     deck_hash["card_deck"].each do |card|
-      self.card_deck << PlayingCard.new(card["rank"], card["suit"])
+      self.card_deck << playing_card(card["rank"], card["suit"])
     end
     self
   end
@@ -37,7 +34,7 @@ class CardDeck
   def provide_deck
     rank.each do |rank|
       suit.each do |suit|
-        card_deck << PlayingCard.new("#{rank}", "#{suit}")
+        card_deck << playing_card("#{rank}", "#{suit}")
         card_deck.each {|card| card.value}
       end
     end
@@ -57,5 +54,11 @@ class CardDeck
 
   def ==(other)
     card_deck == other.card_deck
+  end
+
+  private
+
+  def playing_card(rank, suit)
+    PlayingCard.new(rank, suit)
   end
 end
